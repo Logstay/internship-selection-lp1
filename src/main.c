@@ -50,26 +50,29 @@ void MenuPrincipal()
 
 void MenuDoCoordenador()
 {
-  int retornoAnterior = 1;
 
   while (retornoAnterior)
   {
-    system("clear");
     Banner();
     printf("\nDigite uma das opções para prosseguir:\n");
     printf("1 -> Cadastrar vagas <-\n");
     printf("2 -> Gerar relatório de aprovados <-\n");
-    printf("3 -> Sair da aplicação <-\n");
+    printf("3 -> Mostrar vagas de estágio <-\n");
+    printf("4 -> Sair da aplicação <-\n");
     scanf("%d", &selecao[1]);
-
-    vagazinha vaginha[5];
 
     switch (selecao[1])
     {
     case 1:
-      CadastroDeVagas(vaginha[0]);
+      CadastroDeVagas();
+      break;
+    case 2:
+      // Relatorio
       break;
     case 3:
+      ListarVagas();
+      break;
+    case 4:
       retornoAnterior = 0;
       system("clear");
       break;
@@ -79,19 +82,32 @@ void MenuDoCoordenador()
   }
 }
 
-void CadastroDeVagas(vagazinha v)
+void CadastroDeVagas()
 {
-  printf("\nDefina o titulo da vaga: ");
-  fgets(v.Titulo, MAX_STRING, stdin);
+  printf("\nDefina o titulo da vaga:");
+  scanf(" %s", &vaginha[controleVagas].Titulo);
 
-  printf("\nDefina o quantitativo de vagas: ");
-  scanf("%d", &v.Qtde);
+  printf("\nDefina o quantitativo de vagas:");
+  scanf(" %d", &vaginha[controleVagas].Qtde);
 
-  printf("\nInforme o funcionário que será responsável pela seleção: ");
-  fgets(v.PessoaResponsavel.Nome, MAX_STRING, stdin);
+  printf("\nInforme o funcionário que será responsável pela seleção:");
+  scanf(" %s", &vaginha[controleVagas].PessoaResponsavel.Nome);
 
-  printf("\nQual o valor da remuneração: ");
-  scanf("%f", &v.Remuneracao);
+  printf("\nQual o valor da remuneração:");
+  scanf(" %f", &vaginha[controleVagas].Remuneracao);
+
+  controleVagas++;
+}
+
+void ListarVagas()
+{
+  for (int contador = 0; contador < controleVagas; contador++)
+  {
+    printf("Titulo da Vaga %d: %s\n", contador + 1, vaginha[contador].Titulo);
+    printf("Número de vagas %d: %d\n", contador + 1, vaginha[contador].Qtde);
+    printf("Funcionario responsável pela vaga %d: %s\n", contador + 1, vaginha[contador].PessoaResponsavel.Nome);
+    printf("Remuneração da vaga %d: %0.2f\n", contador + 1, vaginha[contador].Remuneracao);
+  }
 }
 
 void CadastroDeFuncionarios(funcionario f)

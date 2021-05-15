@@ -20,20 +20,35 @@ typedef struct Pessoa
   char Cargo[MAX_STRING];
 } funcionario;
 
-typedef struct Vaga
+struct Candidato
+{
+  char Nome[MAX_STRING];
+  float Pnota;
+  float Snota;
+  float Tnota;
+  float Qnota;
+};
+
+struct Vaga
 {
   char Titulo[MAX_STRING];
   int Qtde;
   funcionario PessoaResponsavel;
   float Remuneracao;
-} vagazinha;
+  struct Candidato Candidatos[];
+};
 
 void MenuPrincipal();
 void Banner();
 void CadastroDeFuncionarios(funcionario f);
 void MenuDoCoordenador();
-void CadastroDeVagas(vagazinha v);
+void CadastroDeVagas();
+void ListarVagas();
+
+struct Vaga vaginha[100];
 
 int selecao[1];
+int controleVagas = 0;
+int retornoAnterior = 1;
 
 #endif
