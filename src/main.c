@@ -9,31 +9,36 @@
 
 */
 
-#include <stdlib.h>
 #include <stdio.h>
-#include "domain.h"
+#include <locale.h>
+#include <stdlib.h>
+#include "includes/domain.h"
 
-void Banner();
-void CadastroDeFuncionarios(struct Pessoa funcionario);
-void menuDoCoordenador();
-void CadastroDeVagas(struct Vaga vaga);
-void CadastroDeFuncionarios(struct Pessoa funcionario);
-
-void menu()
+int main()
 {
+  setlocale(LC_ALL, "Portuguese");
 
+  while (1)
+  {
+    MenuPrincipal();
+  }
+
+  return 0;
+}
+
+void MenuPrincipal()
+{
   Banner();
-
   printf("\nDigite uma das opções para prosseguir:\n");
   printf("1 -> Coordenador <-\n");
   printf("2 -> Aluno <-\n");
   printf("3 -> Sair da aplicação <-\n");
-  scanf("%d", &numero[0]);
+  scanf("%d", &selecao[0]);
 
-  switch (numero[0])
+  switch (selecao[0])
   {
   case 1:
-    menuDoCoordenador();
+    MenuDoCoordenador();
     break;
   case 3:
     exit(0);
@@ -43,7 +48,7 @@ void menu()
   }
 }
 
-void menuDoCoordenador()
+void MenuDoCoordenador()
 {
   int retornoAnterior = 1;
 
@@ -51,23 +56,22 @@ void menuDoCoordenador()
   {
     system("clear");
     Banner();
-
     printf("\nDigite uma das opções para prosseguir:\n");
     printf("1 -> Cadastrar vagas <-\n");
     printf("2 -> Gerar relatório de aprovados <-\n");
     printf("3 -> Sair da aplicação <-\n");
-    scanf("%d", &numero[1]);
+    scanf("%d", &selecao[1]);
 
-    struct Vaga vaginha;
+    vagazinha vaginha[5];
 
-    switch (numero[1])
+    switch (selecao[1])
     {
     case 1:
-      CadastroDeVagas(vaginha);
-    case 2:
+      CadastroDeVagas(vaginha[0]);
+      break;
+    case 3:
       retornoAnterior = 0;
       system("clear");
-      //ListarVagas();
       break;
     default:
       printf("\nOpção invalida");
@@ -75,34 +79,31 @@ void menuDoCoordenador()
   }
 }
 
-void CadastroDeVagas(struct Vaga vaga)
+void CadastroDeVagas(vagazinha v)
 {
   printf("\nDefina o titulo da vaga: ");
-  fgets(vaga.Titulo, MAX_STRING, stdin);
+  fgets(v.Titulo, MAX_STRING, stdin);
 
   printf("\nDefina o quantitativo de vagas: ");
-  scanf("%d", &vaga.Qtde);
+  scanf("%d", &v.Qtde);
 
   printf("\nInforme o funcionário que será responsável pela seleção: ");
-  fgets(vaga.PessoaResponsavel.Nome, MAX_STRING, stdin);
+  fgets(v.PessoaResponsavel.Nome, MAX_STRING, stdin);
 
   printf("\nQual o valor da remuneração: ");
-  scanf("%f", &vaga.Remuneracao);
-
-  // printf("\nDigite 1 para confirmar a inserção de uma nova vaga \nDigite 2 para cancelar a inserção de uma nova vaga");
-  // scanf("%f", &vaga.Remuneracao);
+  scanf("%f", &v.Remuneracao);
 }
 
-void CadastroDeFuncionarios(struct Pessoa funcionario)
+void CadastroDeFuncionarios(funcionario f)
 {
 
   printf("\n\nCadastro de funcionario.");
 
   printf("\n\nNome: ");
-  fgets(funcionario.Nome, MAX_STRING, stdin);
+  fgets(f.Nome, MAX_STRING, stdin);
 
   printf("\n\nCargo: ");
-  fgets(funcionario.Cargo, MAX_STRING, stdin);
+  fgets(f.Cargo, MAX_STRING, stdin);
 }
 
 void Banner()

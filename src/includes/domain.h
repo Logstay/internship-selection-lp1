@@ -9,22 +9,31 @@
 
 */
 
-#include <stdio.h>
+#ifndef DOMAIN_H
+#define DOMAIN_H
 
 #define MAX_STRING 100
 
-struct Pessoa
+typedef struct Pessoa
 {
   char Nome[MAX_STRING];
   char Cargo[MAX_STRING];
-};
+} funcionario;
 
-struct Vaga
+typedef struct Vaga
 {
   char Titulo[MAX_STRING];
   int Qtde;
-  struct Pessoa PessoaResponsavel;
+  funcionario PessoaResponsavel;
   float Remuneracao;
-};
+} vagazinha;
 
-int numero[1];
+void MenuPrincipal();
+void Banner();
+void CadastroDeFuncionarios(funcionario f);
+void MenuDoCoordenador();
+void CadastroDeVagas(vagazinha v);
+
+int selecao[1];
+
+#endif
