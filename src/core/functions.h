@@ -9,13 +9,11 @@
 
 */
 
-#ifndef FUNCTION_H
-
 #include <stdlib.h>
 #include <stdio.h>
 #include "domain.h"
 
-void Test();
+void Banner();
 void CadastroDeFuncionarios(struct Pessoa funcionario);
 void menuDoCoordenador();
 void CadastroDeVagas(struct Vaga vaga);
@@ -24,13 +22,21 @@ void CadastroDeFuncionarios(struct Pessoa funcionario);
 void menu()
 {
 
-  printf("\n\nDigite o numero 1 para selecionar: ");
-  scanf("%d", &menuOption);
+  Banner();
 
-  switch (menuOption)
+  printf("\nDigite uma das opções para prosseguir:\n");
+  printf("1 -> Coordenador <-\n");
+  printf("2 -> Aluno <-\n");
+  printf("3 -> Sair da aplicação <-\n");
+  scanf("%d", &numero[0]);
+
+  switch (numero[0])
   {
   case 1:
     menuDoCoordenador();
+    break;
+  case 3:
+    exit(0);
     break;
   default:
     printf("\nOpção invalida");
@@ -43,14 +49,18 @@ void menuDoCoordenador()
 
   while (retornoAnterior)
   {
+    system("clear");
+    Banner();
 
-    printf("\n\nMENU COORDENADOR");
-    printf("\n\nDigite o número para acionar uma ação: ");
-    scanf("%d", &menuOption);
+    printf("\nDigite uma das opções para prosseguir:\n");
+    printf("1 -> Cadastrar vagas <-\n");
+    printf("2 -> Gerar relatório de aprovados <-\n");
+    printf("3 -> Sair da aplicação <-\n");
+    scanf("%d", &numero[1]);
 
     struct Vaga vaginha;
 
-    switch (menuOption)
+    switch (numero[1])
     {
     case 1:
       CadastroDeVagas(vaginha);
@@ -68,13 +78,13 @@ void menuDoCoordenador()
 void CadastroDeVagas(struct Vaga vaga)
 {
   printf("\nDefina o titulo da vaga: ");
-  scanf("%s", &vaga.Titulo);
+  fgets(vaga.Titulo, MAX_STRING, stdin);
 
   printf("\nDefina o quantitativo de vagas: ");
   scanf("%d", &vaga.Qtde);
 
   printf("\nInforme o funcionário que será responsável pela seleção: ");
-  scanf("%s", &vaga.PessoaResponsavel.Nome);
+  fgets(vaga.PessoaResponsavel.Nome, MAX_STRING, stdin);
 
   printf("\nQual o valor da remuneração: ");
   scanf("%f", &vaga.Remuneracao);
@@ -83,36 +93,21 @@ void CadastroDeVagas(struct Vaga vaga)
   // scanf("%f", &vaga.Remuneracao);
 }
 
-// void ListarVagas()
-// {
-//   for (size_t i = 0; i = < vagas; i++)
-//   {
-//     printf(" \n O nome da vaga é: %d ", func[i].nome);
-//   }
-// }
-
 void CadastroDeFuncionarios(struct Pessoa funcionario)
 {
 
   printf("\n\nCadastro de funcionario.");
 
   printf("\n\nNome: ");
-  scanf("%s", &funcionario.Nome);
+  fgets(funcionario.Nome, MAX_STRING, stdin);
 
   printf("\n\nCargo: ");
-  scanf("%s", &funcionario.Cargo);
+  fgets(funcionario.Cargo, MAX_STRING, stdin);
 }
 
-void Test()
+void Banner()
 {
-  printf("\nMinha Função TEST\n");
+  printf("\n***************************\n");
+  printf("\nUNIESP - Seleção de Estágio\n");
+  printf("\n***************************\n");
 }
-
-// 1 2 3 4 5 for (i = 0; i < 10; i++)
-// {
-//   strcpy(func[i].nome, "NULL");
-//   func[i].idade = 0;
-//   func[i].salario = 0.0;
-// }
-
-#endif

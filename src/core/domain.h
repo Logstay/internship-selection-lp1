@@ -11,19 +11,20 @@
 
 #include <stdio.h>
 
+#define MAX_STRING 100
+
 struct Pessoa
 {
-  char Nome[50];
-  char Cargo[50];
+  char Nome[MAX_STRING];
+  char Cargo[MAX_STRING];
 };
 
 struct Vaga
 {
-  char Titulo[50];
+  char Titulo[MAX_STRING];
   int Qtde;
   struct Pessoa PessoaResponsavel;
   float Remuneracao;
 };
 
-float numero[1];
-int menuOption;
+int numero[1];
