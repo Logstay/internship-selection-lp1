@@ -1,4 +1,5 @@
 /*
+
 ##       ########     ##                 ########  ########   #######        ## ########  ######  ######## 
 ##       ##     ##  ####                 ##     ## ##     ## ##     ##       ## ##       ##    ##    ##    
 ##       ##     ##    ##                 ##     ## ##     ## ##     ##       ## ##       ##          ##    
@@ -8,6 +9,10 @@
 ######## ##         ######               ##        ##     ##  #######   ######  ########  ######     ##    
 
 */
+
+/**
+ * by: Kaique M. D. Lima and Mateus P. Jorge  
+ */
 
 #include <stdio.h>
 #include <locale.h>
@@ -28,17 +33,23 @@ int main()
 
 void MenuPrincipal()
 {
+  int selecaoMenuPrincial;
   Banner();
   printf("\nDigite uma das opções para prosseguir:\n");
   printf("1 -> Coordenador <-\n");
   printf("2 -> Aluno <-\n");
   printf("3 -> Sair da aplicação <-\n");
-  scanf("%d", &selecao[0]);
+  scanf("%d", &selecaoMenuPrincial);
 
-  switch (selecao[0])
+  printf("SELECAO DOIDA%dDOIDA", selecaoMenuPrincial);
+
+  switch (selecaoMenuPrincial)
   {
   case 1:
     MenuDoCoordenador();
+    break;
+  case 2:
+    MenuDoAluno();
     break;
   case 3:
     exit(0);
@@ -50,30 +61,27 @@ void MenuPrincipal()
 
 void MenuDoCoordenador()
 {
+  int selecaoMenuCoordenador;
+  int retornoAnteriorCoordenador = 1;
 
-  while (retornoAnterior)
+  while (retornoAnteriorCoordenador)
   {
-    Banner();
     printf("\nDigite uma das opções para prosseguir:\n");
     printf("1 -> Cadastrar vagas <-\n");
-    printf("2 -> Gerar relatório de aprovados <-\n");
-    printf("3 -> Mostrar vagas de estágio <-\n");
-    printf("4 -> Sair da aplicação <-\n");
-    scanf("%d", &selecao[1]);
+    printf("2 -> Cadastro de notas da seleção <-\n");
+    printf("3 -> Retornar Menu anterior <-\n");
+    scanf("%d", &selecaoMenuCoordenador);
 
-    switch (selecao[1])
+    switch (selecaoMenuCoordenador)
     {
     case 1:
       CadastroDeVagas();
       break;
     case 2:
-      // Relatorio
+      tratamentoReturno(CadastroDeNotasSelecao(), "Não há alunos cadastrados!!");
       break;
     case 3:
-      ListarVagas();
-      break;
-    case 4:
-      retornoAnterior = 0;
+      retornoAnteriorCoordenador = 0;
       system("clear");
       break;
     default:
@@ -82,49 +90,155 @@ void MenuDoCoordenador()
   }
 }
 
+void MenuDoAluno()
+{
+
+  int selecaoMenuAluno;
+  int retornoAnteriorAluno = 1;
+
+  while (retornoAnteriorAluno)
+  {
+    printf("Digite uma das opções para prosseguir:\n");
+    printf("1 -> Listar vagas disponiveis <-\n");
+    printf("2 -> Candidatar-se a vaga de estágio <-\n");
+    printf("3 -> Retornar Menu anterior <-\n");
+    scanf("%d", &selecaoMenuAluno);
+
+    switch (selecaoMenuAluno)
+    {
+    case 1:
+      tratamentoReturno(ListarVagas(), "Não Há vagas!!");
+      break;
+    case 2:
+      CandidatarVagaSelecaoAluno();
+      break;
+    case 3:
+      retornoAnteriorAluno = 0;
+      system("clear");
+      break;
+    default:
+      printf("\nOpção invalida");
+    }
+  }
+}
+
+int CandidatarVagaSelecaoAluno()
+{
+  int numeroDaVaga;
+  int controleSaida = 1;
+  int verificaSeHaVagas = controleVagas;
+
+  for (int contador = 0; contador < controleVagas; contador++)
+  {
+    printf("Vaga %d: %s\n", contador + 1, vagas[contador].Titulo);
+  }
+
+  if (verificaSeHaVagas == 0)
+  {
+    return 1;
+  }
+
+  while (controleSaida)
+  {
+    printf("\nInforme o número da vaga que você deseja se candidatar:");
+    scanf("%d", &numeroDaVaga);
+
+    if (numeroDaVaga > sizeof(vagas))
+    {
+      printf("Vaga inexistente!!!");
+    }
+    else
+    {
+      controleSaida = 0;
+    }
+  }
+
+  printf("\nInforme seu nome:");
+  scanf("%s", &vagas[numeroDaVaga].Candidatos[controleCadastroAluno].Nome);
+
+  printf("\nInforme seu CRE:");
+  scanf("%f", &vagas[numeroDaVaga].Candidatos[controleCadastroAluno].CRE);
+
+  printf("\nInforme sua matricula:");
+  scanf("%d", &vagas[numeroDaVaga].Candidatos[controleCadastroAluno].Matricula);
+
+  controleCadastroAluno++;
+
+  return 0;
+}
+
 void CadastroDeVagas()
 {
   printf("\nDefina o titulo da vaga:");
-  scanf(" %s", &vaginha[controleVagas].Titulo);
+  scanf("%s", &vagas[controleVagas].Titulo);
+
+  printf("\nDefina os requisitos da vaga:");
+  scanf("%s", &vagas[controleVagas].Requisitos);
 
   printf("\nDefina o quantitativo de vagas:");
-  scanf(" %d", &vaginha[controleVagas].Qtde);
+  scanf("%d", &vagas[controleVagas].Qtde);
 
   printf("\nInforme o funcionário que será responsável pela seleção:");
-  scanf(" %s", &vaginha[controleVagas].PessoaResponsavel.Nome);
+  scanf("%s", &vagas[controleVagas].funcionarioResponsavel);
 
   printf("\nQual o valor da remuneração:");
-  scanf(" %f", &vaginha[controleVagas].Remuneracao);
+  scanf("%f", &vagas[controleVagas].Remuneracao);
 
   controleVagas++;
 }
 
-void ListarVagas()
+int ListarVagas()
 {
+  printf("controle %d", controleVagas);
+
   for (int contador = 0; contador < controleVagas; contador++)
   {
-    printf("Titulo da Vaga %d: %s\n", contador + 1, vaginha[contador].Titulo);
-    printf("Número de vagas %d: %d\n", contador + 1, vaginha[contador].Qtde);
-    printf("Funcionario responsável pela vaga %d: %s\n", contador + 1, vaginha[contador].PessoaResponsavel.Nome);
-    printf("Remuneração da vaga %d: %0.2f\n", contador + 1, vaginha[contador].Remuneracao);
+    printf("\nTitulo da Vaga %d: %s\n", contador + 1, vagas[contador].Titulo);
+    printf("Requisitos da Vaga %d: %s\n", contador + 1, vagas[contador].Requisitos);
+    printf("Funcionario responsável pela vaga %d: %s\n", contador + 1, vagas[contador].funcionarioResponsavel);
+    printf("Número de vagas %d: %d\n", contador + 1, vagas[contador].Qtde);
+    printf("Remuneração da vaga %d: %0.2f\n", contador + 1, vagas[contador].Remuneracao);
   }
+
+  if (controleVagas == 0)
+  {
+    return 1;
+  }
+
+  return 0;
 }
 
-void CadastroDeFuncionarios(funcionario f)
+int CadastroDeNotasSelecao()
 {
+  int primeiraIteracao = 0;
+  int segundaIteracao = 0;
 
-  printf("\n\nCadastro de funcionario.");
+  for (primeiraIteracao; primeiraIteracao < controleVagas; primeiraIteracao++)
+  {
+    for (segundaIteracao; segundaIteracao < primeiraIteracao; segundaIteracao++)
+    {
+      printf("Alunos %d: %s\n", primeiraIteracao + 1, vagas[primeiraIteracao].Candidatos[segundaIteracao].Nome);
+    }
+  }
 
-  printf("\n\nNome: ");
-  fgets(f.Nome, MAX_STRING, stdin);
+  if (controleCadastroAluno == 0)
+  {
+    return 1;
+  }
 
-  printf("\n\nCargo: ");
-  fgets(f.Cargo, MAX_STRING, stdin);
+  return 0;
 }
 
 void Banner()
 {
-  printf("\n***************************\n");
-  printf("\nUNIESP - Seleção de Estágio\n");
-  printf("\n***************************\n");
+  printf("\n----------------------------------------------------------");
+  printf("\n               UNIESP - Seleção de Estágio                ");
+  printf("\n----------------------------------------------------------\n");
+}
+
+void tratamentoReturno(int retornoFuncao, char mensagem[100])
+{
+  (retornoFuncao == 1)
+      ? printf("\n%s\n", mensagem)
+      : "";
 }

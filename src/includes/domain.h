@@ -13,42 +13,39 @@
 #define DOMAIN_H
 
 #define MAX_STRING 100
+#define MAX_LENGTH 100
 
-typedef struct Pessoa
+struct Pessoa
 {
   char Nome[MAX_STRING];
-  char Cargo[MAX_STRING];
-} funcionario;
-
-struct Candidato
-{
-  char Nome[MAX_STRING];
-  float Pnota;
-  float Snota;
-  float Tnota;
-  float Qnota;
+  float CRE;
+  int Matricula;
+  int Notas[1][3];
 };
 
 struct Vaga
 {
   char Titulo[MAX_STRING];
+  char Requisitos[MAX_STRING];
+  char funcionarioResponsavel[MAX_STRING];
   int Qtde;
-  funcionario PessoaResponsavel;
   float Remuneracao;
-  struct Candidato Candidatos[];
+  struct Pessoa Candidatos[MAX_STRING];
 };
 
 void MenuPrincipal();
 void Banner();
-void CadastroDeFuncionarios(funcionario f);
+int CadastroDeNotasSelecao();
 void MenuDoCoordenador();
 void CadastroDeVagas();
-void ListarVagas();
+int ListarVagas();
+int CandidatarVagaSelecaoAluno();
+void tratamentoReturno(int retornoFuncao, char mensagem[100]);
+void MenuDoAluno();
 
-struct Vaga vaginha[100];
+struct Vaga vagas[MAX_LENGTH];
 
-int selecao[1];
 int controleVagas = 0;
-int retornoAnterior = 1;
+int controleCadastroAluno = 0;
 
 #endif
