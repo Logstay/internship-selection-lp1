@@ -23,12 +23,8 @@ int main()
 {
   setlocale(LC_ALL, "Portuguese");
 
-  while (1)
-  {
-    MenuPrincipal();
-  }
+    while (1) MenuPrincipal();
 
-  return 0;
 }
 
 void MenuPrincipal()
@@ -53,7 +49,6 @@ void MenuPrincipal()
     break;
   case 3:
     exit(0);
-    break;
   default:
     printf("\nOpção invalida");
   }
@@ -176,10 +171,10 @@ void CadastroDeVagas()
   scanf("%s", &vagas[controleVagas].Requisitos);
 
   printf("\nDefina o quantitativo de vagas:");
-  scanf("%d", &vagas[controleVagas].Qtde);
+  scanf("%d", &vagas[controleVagas].QuantidadeVagas);
 
   printf("\nInforme o funcionário que será responsável pela seleção:");
-  scanf("%s", &vagas[controleVagas].funcionarioResponsavel);
+  scanf("%s", &vagas[controleVagas].FuncionarioResponsavel);
 
   printf("\nQual o valor da remuneração:");
   scanf("%f", &vagas[controleVagas].Remuneracao);
@@ -195,8 +190,8 @@ int ListarVagas()
   {
     printf("\nTitulo da Vaga %d: %s\n", contador + 1, vagas[contador].Titulo);
     printf("Requisitos da Vaga %d: %s\n", contador + 1, vagas[contador].Requisitos);
-    printf("Funcionario responsável pela vaga %d: %s\n", contador + 1, vagas[contador].funcionarioResponsavel);
-    printf("Número de vagas %d: %d\n", contador + 1, vagas[contador].Qtde);
+    printf("Funcionario responsável pela vaga %d: %s\n", contador + 1, vagas[contador].FuncionarioResponsavel);
+    printf("Número de vagas %d: %d\n", contador + 1, vagas[contador].QuantidadeVagas);
     printf("Remuneração da vaga %d: %0.2f\n", contador + 1, vagas[contador].Remuneracao);
   }
 
@@ -210,12 +205,10 @@ int ListarVagas()
 
 int CadastroDeNotasSelecao()
 {
-  int primeiraIteracao = 0;
-  int segundaIteracao = 0;
 
-  for (primeiraIteracao; primeiraIteracao < controleVagas; primeiraIteracao++)
+  for (int primeiraIteracao = 0; primeiraIteracao < controleVagas; primeiraIteracao++)
   {
-    for (segundaIteracao; segundaIteracao < primeiraIteracao; segundaIteracao++)
+    for (int segundaIteracao = 0; segundaIteracao < primeiraIteracao; segundaIteracao++)
     {
       printf("Alunos %d: %s\n", primeiraIteracao + 1, vagas[primeiraIteracao].Candidatos[segundaIteracao].Nome);
     }
@@ -238,7 +231,9 @@ void Banner()
 
 void tratamentoReturno(int retornoFuncao, char mensagem[100])
 {
-  (retornoFuncao == 1)
-      ? printf("\n%s\n", mensagem)
-      : "";
+    if (retornoFuncao == 1) {
+        printf("\n%s\n", mensagem);
+    } else {
+        printf("");
+    }
 }

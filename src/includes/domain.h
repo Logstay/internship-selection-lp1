@@ -27,8 +27,8 @@ struct Vaga
 {
   char Titulo[MAX_STRING];
   char Requisitos[MAX_STRING];
-  char funcionarioResponsavel[MAX_STRING];
-  int Qtde;
+  char FuncionarioResponsavel[MAX_STRING];
+  int QuantidadeVagas;
   float Remuneracao;
   struct Pessoa Candidatos[MAX_STRING];
 };
