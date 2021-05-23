@@ -20,7 +20,7 @@ struct Pessoa
   char Nome[MAX_STRING];
   float CRE;
   int Matricula;
-  int Notas[1][3];
+  int Notas[0][2];
 };
 
 struct Vaga
@@ -31,17 +31,20 @@ struct Vaga
   int QuantidadeVagas;
   float Remuneracao;
   struct Pessoa Candidatos[MAX_STRING];
+  int QuantidadeAlunosCadidatados;
 };
 
 void MenuPrincipal();
 void Banner();
-int CadastroDeNotasSelecao();
-void MenuDoCoordenador();
 void CadastroDeVagas();
-int ListarVagas();
-int CandidatarVagaSelecaoAluno();
+void MenuDoCoordenador();
 void tratamentoReturno(int retornoFuncao, char mensagem[100]);
 void MenuDoAluno();
+void flush_in();
+int CadastroDeNotasSelecao();
+int ListarVagas();
+int CandidatarVagaSelecaoAluno();
+void importarArquivo();
 
 struct Vaga vagas[MAX_LENGTH];
 
