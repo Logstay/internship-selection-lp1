@@ -31,7 +31,7 @@ struct Vaga
   char FuncionarioResponsavel[MAX_STRING];
   int QuantidadeVagas;
   float Remuneracao;
-  struct Pessoa Candidatos[MAX_STRING];
+  struct Pessoa Candidatos[10];
   int QuantidadeAlunosCandidatados;
 };
 
@@ -53,5 +53,6 @@ struct Vaga vagas[MAX_LENGTH];
 int controleVagas;
 int controleCadastroAluno;
 int controlenotasCadastradas;
+int vagaEscolha;
 
 #endif
